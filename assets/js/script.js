@@ -1,101 +1,61 @@
-var question1 = 
+//variable for all questions, choices, and answers
+var questionsArr = [
     {
-        prompt: "What is the shotcut to start your HTML code?",
-        a: "A: ./",
-        b: "B: !",
-        c: "C: ++",
-        d: "D: *",
-        answer: "B"
-    };
-
-    var question2 = 
+        question: "What is the shotcut to start your HTML code?",
+        choices: ["A: ./", "B: !","C: ++", "D: *"],
+        answer: "B: !",
+    },
     {
-        prompt: "Which is not a CSS selector?",
-        a: "A: Array",
-        b: "B: Universal",
-        c: "C: Class",
-        d: "D: ID",
-        answer: "A"
-    };
-
-    var question3 = 
+        question: "Which is not a CSS selector?",
+        choices: ["A: Array", "B: Universal", "C: Class", "D: ID"],
+        answer: "A: Array",
+    },
     {
-        prompt: "What method allows you to run code when an intercation happens?",
-        a: "A: concat",
-        b: "B: push",
-        c: "C: addEventListener",
-        d: "D: splice",
-        answer: "C"
-    };
-
-    var question4 = 
+        question: "What method allows you to run code when an intercation happens?",
+        choices: ["A: concat", "B: push", "C: addEventListener", "D: splice"],
+        answer: "C: addEventListener",
+    },
     {
-        prompt: "Functions must be followed by what?",
-        a: "A: []",
-        b: "B: {}",
-        c: "C: ;",
-        d: "D: ()",
-        answer: "D"
-    };
-
-    var question5 = 
+        question: "Functions must be followed by what?",
+        choices: ["A: []", "B: {}", "C: ;", "D: ()"],
+        answer: "D: ()",
+    },
     {
-        prompt: "Which is not used in JavaScript",
-        a: "A: for loops",
-        b: "B: if statements",
-        c: "C: media-query",
-        d: "D: variables",
-        answer: "C"
-    };
+        question: "Which is not used in JavaScript",
+        choices: ["A: for loops", "B: if statements", "C: media-query", "D: variables"],
+        answer: "C: media-query",
+    },];
 
-var questionsArr = [question1, question2, question3, question4, question5];
+//Variables from DOM
+var startBtn = document.getElementById("start-btn");
+var timeRemaining = document.getElementById("time");
+var questionsEl = document.getElementById("questions");
+var choicesEl = document.getElementById("choices");
+var submitBtn = document.getElementById("submit-btn");
+var intialsEL = document.getElementById("intials");
+var feedbackEl = document.getElementById("feedback");
+var homePageEl = document.getElementsByClassName("home-page");
+var endQuiz = document.getElementById("end-quiz");
 
-var startBtn = document.querySelector("#start-btn");
-var viewHigh = document.querySelector("#view-highscores");
-var timeRemaining = document.querySelector("#time");
-var quizTitle = document.querySelector("#quiz-title");
-var quizInstructions = document.querySelector("#quiz-instructions");
-var homePage = document.querySelector(".home-page");
-var questionText = document.querySelector("#question");
-var question1Text = document.querySelector("#a");
-var question2Text = document.querySelector("#b");
-var question3Text = document.querySelector("#c");
-var question4Text = document.querySelector("#d");
-var nextBtn = document.querySelector("#next-btn");
-var displayQuestion = document.querySelector(".display-question");
 
 var timeLeft = 60;
 var myTimer;
-var currentQuestion = questionsArr[0];
+var currentQuestion = 0;
 
 function init() {
-    displayQuestion.style.visibility = "hidden";
+  questionsEl.style.visibility = "hidden";
+  endQuiz.style.visibility = "hidden";
+  feedbackEl.style.visibility = "hidden";
+
 }
  
-function renderQuestion () {
-    homePage.style.display = "none";
-    displayQuestion.style.visibility = "visible";
+function renderQuestion() {
+var currentQuestion = questionsArr[currentQuestionIndex];
+var QuestionText = document.getElementById("question-text");
+QuestionText.textContent = currentQuestion;
 
-    questionText.textContent = currentQuestion.prompt;
-    question1Text.textContent = currentQuestion.a;
-    question2Text.textContent = currentQuestion.b;
-    question3Text.textContent = currentQuestion.c;
-    question4Text.textContent = currentQuestion.d;
 }
 
-function nextQuestion () {
-    for (var i=0; i < questionsArr.length; i++); {
-    currentQuestion = questionsArr[i];
-
-    questionText.textContent = currentQuestion.prompt;
-    question1Text.textContent = currentQuestion.a;
-    question2Text.textContent = currentQuestion.b;
-    question3Text.textContent = currentQuestion.c;
-    question4Text.textContent = currentQuestion.d;
-    }
-}
-
-nextBtn.addEventListener("click", nextQuestion);
 
 
 function startTimer() {
