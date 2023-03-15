@@ -14,11 +14,24 @@
         <h2><span>Time: </span><span id="time">0</span></h2>
     </header>
 
-    <main>
+    <main class="home-page">
         <h1 id="quiz-title">Coding Quiz Challenge</h1>
         <p id="quiz-instructions">Try to answer the following code-related questions within the time limit. Keep in mind that incorrect answers will penalize your score/time by ten seconds!</p>
         <button id="start-btn">Start Quiz</button>
     </main>
+
+    <section class="display-question">
+        <p id="question"></p>
+        <ol>
+            <li class="choice", id="a"></li>
+            <li class="choice", id="b"></li>
+            <li class="choice", id="c"></li>
+            <li class="choice", id="d"></li>
+        </ol>
+        <div id="check-answer"></div>
+        <button id="next-btn">Next Question</button>
+    </section>
+
     <script src = "./assets/js/script.js"></script>
 </body>
 </html>

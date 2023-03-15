@@ -43,6 +43,27 @@ p {
     margin-bottom: 25px;
 }
 
+li {
+    display: block;
+    width: 20%;
+    font-size: 24px;
+    background-color: lightgray;
+    color: black;
+    margin-bottom: 5px;
+    margin-left: 30%;
+    border-radius: 5px;
+}
+
+#next-btn {
+    display: block;
+    width: 10%;
+    font-size: 24px;
+    background-color: navy;
+    color: white;
+    cursor:grab;
+    margin-left: 30%;
+}
+
 #start-btn {
     display: block;
     width: 10%;
@@ -53,7 +74,7 @@ p {
 }
 
 @media screen and (max-width: 768px) {
-    #start-btn {
+    #start-btn, #next-btn {
         display: inline-block;
         width: 25%;
     }
