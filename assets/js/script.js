@@ -11,7 +11,7 @@ var questionsArr = [
         answer: "A: Array",
     },
     {
-        question: "What method allows you to run code when an intercation happens?",
+        question: "What method allows you to run code when an interaction happens?",
         choices: ["A: concat", "B: push", "C: addEventListener", "D: splice"],
         answer: "C: addEventListener",
     },
@@ -36,6 +36,7 @@ var intialsEL = document.getElementById("intials");
 var feedbackEl = document.getElementById("feedback");
 var homePageEl = document.getElementById("home-page");
 var endQuiz = document.getElementById("end-quiz");
+var questionText = document.getElementById("question-text");
 
 
 var timeLeft = 60;
@@ -57,9 +58,10 @@ function nextQuestion() {
 
  
 function renderQuestion() { 
+questionsEl.innerHTML = "";
 var currentQuestion = questionsArr[currentQuestionIndex];
 
-var questionText = document.createElement("h2");
+questionText = document.createElement("h2");
 choicesEl = document.createElement("ol");
 var choice1 = document.createElement("li");
 var choice2 = document.createElement("li");
@@ -72,17 +74,17 @@ choice2.textContent = currentQuestion.choices[1];
 choice3.textContent = currentQuestion.choices[2];
 choice4.textContent = currentQuestion.choices[3];
 
-questionText.setAttribute("style", "font-size: 24px; margin-left: 30%; margin-bottom: 5px;");
-choice1.setAttribute("style", "display: block; width: 15%; margin-left: 30%; margin-bottom: 5px; font-size: 20px; background-color: navy; color: white; cursor: grab;");
-choice2.setAttribute("style", "display: block; width: 15%; margin-left: 30%; margin-bottom: 5px; font-size: 20px; background-color: navy; color: white; cursor: grab;");
-choice3.setAttribute("style", "display: block; width: 15%; margin-left: 30%; margin-bottom: 5px; font-size: 20px; background-color: navy; color: white; cursor: grab;");
-choice4.setAttribute("style", "display: block; width: 15%; margin-left: 30%; margin-bottom: 5px; font-size: 20px; background-color: navy; color: white; cursor: grab;");
+questionText.setAttribute("style", "font-size: 30px; font-weight:bold; margin-left: 30%; margin-bottom: 10px;");
+choice1.setAttribute("style", "display: block; width: 15%; margin-left: 30%; margin-bottom: 5px; font-size: 26px; background-color: navy; color: white; cursor: grab;");
+choice2.setAttribute("style", "display: block; width: 15%; margin-left: 30%; margin-bottom: 5px; font-size: 26px; background-color: navy; color: white; cursor: grab;");
+choice3.setAttribute("style", "display: block; width: 15%; margin-left: 30%; margin-bottom: 5px; font-size: 26px; background-color: navy; color: white; cursor: grab;");
+choice4.setAttribute("style", "display: block; width: 15%; margin-left: 30%; margin-bottom: 5px; font-size: 26px; background-color: navy; color: white; cursor: grab;");
 
-document.body.appendChild(questionText);
-document.body.appendChild(choice1);
-document.body.appendChild(choice2);
-document.body.appendChild(choice3);
-document.body.appendChild(choice4);
+questionsEl.appendChild(questionText);
+questionsEl.appendChild(choice1);
+questionsEl.appendChild(choice2);
+questionsEl.appendChild(choice3);
+questionsEl.appendChild(choice4);
 
 choice1.addEventListener("click", nextQuestion);
 choice2.addEventListener("click", nextQuestion);
@@ -110,6 +112,7 @@ function startQuiz() {
     isStarted = true;
 
     homePageEl.style.visibility = "hidden";
+    questionsEl.style.visibility = "visible";
 
     startTimer();
     renderQuestion();
