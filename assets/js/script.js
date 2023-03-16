@@ -43,6 +43,7 @@ var timeLeft = 60;
 var myTimer;
 var currentQuestionIndex = 0;
 
+
 function init() {
   questionsEl.style.visibility = "hidden";
   endQuiz.style.visibility = "hidden";
@@ -50,10 +51,25 @@ function init() {
 
 }
 
-function nextQuestion() {
+function nextQuestion(event) {
+    var choiceBtn = event.target;
+    var userChoice = choiceBtn.textContent;
+    checkAnswer(userChoice);
     questionsEl.innerHTML = "";
     currentQuestionIndex++;
-    renderQuestion()
+    renderQuestion();
+};
+
+function checkAnswer(guess) {
+
+    var checkAnswer = questionsArr[currentQuestionIndex];
+    var answer = checkAnswer.answer
+    if(answer !== guess) {
+        timeLeft = (timeLeft -10);
+        feedbackEl.textContent = "Wrong Answer";
+   } else {
+    feedbackEl.textContent = "Correct!";
+   }
 };
 
  
@@ -91,6 +107,7 @@ choice2.addEventListener("click", nextQuestion);
 choice3.addEventListener("click", nextQuestion);
 choice4.addEventListener("click", nextQuestion);
 
+
 };
 
 
@@ -113,6 +130,7 @@ function startQuiz() {
 
     homePageEl.style.visibility = "hidden";
     questionsEl.style.visibility = "visible";
+    feedbackEl.style.visibility = "visible";
 
     startTimer();
     renderQuestion();
