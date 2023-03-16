@@ -34,13 +34,13 @@ var choicesEl = document.getElementById("choices");
 var submitBtn = document.getElementById("submit-btn");
 var intialsEL = document.getElementById("intials");
 var feedbackEl = document.getElementById("feedback");
-var homePageEl = document.getElementsByClassName("home-page");
+var homePageEl = document.getElementById("home-page");
 var endQuiz = document.getElementById("end-quiz");
 
 
 var timeLeft = 60;
 var myTimer;
-var currentQuestion = 0;
+var currentQuestionIndex = 0;
 
 function init() {
   questionsEl.style.visibility = "hidden";
@@ -48,13 +48,48 @@ function init() {
   feedbackEl.style.visibility = "hidden";
 
 }
- 
-function renderQuestion() {
-var currentQuestion = questionsArr[currentQuestionIndex];
-var QuestionText = document.getElementById("question-text");
-QuestionText.textContent = currentQuestion;
 
-}
+function nextQuestion() {
+    questionsEl.innerHTML = "";
+    currentQuestionIndex++;
+    renderQuestion()
+};
+
+ 
+function renderQuestion() { 
+var currentQuestion = questionsArr[currentQuestionIndex];
+
+var questionText = document.createElement("h2");
+choicesEl = document.createElement("ol");
+var choice1 = document.createElement("li");
+var choice2 = document.createElement("li");
+var choice3 = document.createElement("li");
+var choice4 = document.createElement("li");
+
+questionText.textContent = currentQuestion.question;
+choice1.textContent = currentQuestion.choices[0];
+choice2.textContent = currentQuestion.choices[1];
+choice3.textContent = currentQuestion.choices[2];
+choice4.textContent = currentQuestion.choices[3];
+
+questionText.setAttribute("style", "font-size: 24px; margin-left: 30%; margin-bottom: 5px;");
+choice1.setAttribute("style", "display: block; width: 15%; margin-left: 30%; margin-bottom: 5px; font-size: 20px; background-color: navy; color: white; cursor: grab;");
+choice2.setAttribute("style", "display: block; width: 15%; margin-left: 30%; margin-bottom: 5px; font-size: 20px; background-color: navy; color: white; cursor: grab;");
+choice3.setAttribute("style", "display: block; width: 15%; margin-left: 30%; margin-bottom: 5px; font-size: 20px; background-color: navy; color: white; cursor: grab;");
+choice4.setAttribute("style", "display: block; width: 15%; margin-left: 30%; margin-bottom: 5px; font-size: 20px; background-color: navy; color: white; cursor: grab;");
+
+document.body.appendChild(questionText);
+document.body.appendChild(choice1);
+document.body.appendChild(choice2);
+document.body.appendChild(choice3);
+document.body.appendChild(choice4);
+
+choice1.addEventListener("click", nextQuestion);
+choice2.addEventListener("click", nextQuestion);
+choice3.addEventListener("click", nextQuestion);
+choice4.addEventListener("click", nextQuestion);
+
+};
 
 
 
@@ -74,9 +109,12 @@ function startQuiz() {
     startBtn.disabled = true;
     isStarted = true;
 
+    homePageEl.style.visibility = "hidden";
+
     startTimer();
     renderQuestion();
 }
+
 startBtn.addEventListener("click", startQuiz)
 
 init();
