@@ -26,7 +26,7 @@ var questionsArr = [
         answer: "C: media-query",
     },];
 
-//Variables from DOM
+//Variables from HTML
 var startBtn = document.getElementById("start-btn");
 var timeRemaining = document.getElementById("time");
 var questionsEl = document.getElementById("questions");
@@ -35,18 +35,21 @@ var submitBtn = document.getElementById("submit-btn");
 var intialsEL = document.getElementById("intials");
 var feedbackEl = document.getElementById("feedback");
 var homePageEl = document.getElementById("home-page");
-var endQuiz = document.getElementById("end-quiz");
+var endQuizText = document.getElementById("end-quiz");
 var questionText = document.getElementById("question-text");
+var scoreView = document.getElementById("score");
 
-
+//Remaining variables
 var timeLeft = 60;
+var score = 0;
+var scoresArr = [];
 var myTimer;
 var currentQuestionIndex = 0;
 
 
 function init() {
   questionsEl.style.visibility = "hidden";
-  endQuiz.style.visibility = "hidden";
+  endQuizText.style.visibility = "hidden";
   feedbackEl.style.visibility = "hidden";
 
 }
@@ -58,12 +61,14 @@ function nextQuestion(event) {
     questionsEl.innerHTML = "";
     currentQuestionIndex++;
     renderQuestion();
+    endQuiz();
 };
 
 function checkAnswer(guess) {
 
     var checkAnswer = questionsArr[currentQuestionIndex];
     var answer = checkAnswer.answer
+    feedbackEl.setAttribute("style", "font-size: 30px; font-weight:bold; margin-left: 30%; margin-bottom: 10px;");
     if(answer !== guess) {
         timeLeft = (timeLeft -10);
         feedbackEl.textContent = "Wrong Answer";
@@ -72,12 +77,33 @@ function checkAnswer(guess) {
    }
 };
 
- 
+function endQuiz() {
+    clearInterval(myTimer);
+    questionsEl.style.visibility = "hidden";
+    var outcome = document.createElement("h1");
+    outcome.innerHTML = "You got a score of: " + timeLeft + "!";
+    endQuizText.append(outcome);
+    var input = document.createElement("input");
+    input.setAttribute("placeholder", "Initials...");
+    endQuizText.append(input);
+    var submit = document.createElement("button");
+    submit.innerHTML = "Submit";
+    endQuizText.append(submit);
+    submit.addEventListener("click", function() {
+
+    var initials = input.value;
+    endQuizText.style.visibility = "visible";
+    });
+    localStorage.setItem("userScore", JSON.stringify(timeLeft));
+    input.setAttribute("placeholder", " ");
+}
+
+
 function renderQuestion() { 
 questionsEl.innerHTML = "";
 var currentQuestion = questionsArr[currentQuestionIndex];
 
-questionText = document.createElement("h2");
+var questionText = document.createElement("h2");
 choicesEl = document.createElement("ol");
 var choice1 = document.createElement("li");
 var choice2 = document.createElement("li");
@@ -106,8 +132,6 @@ choice1.addEventListener("click", nextQuestion);
 choice2.addEventListener("click", nextQuestion);
 choice3.addEventListener("click", nextQuestion);
 choice4.addEventListener("click", nextQuestion);
-
-
 };
 
 
@@ -128,9 +152,10 @@ function startQuiz() {
     startBtn.disabled = true;
     isStarted = true;
 
-    homePageEl.style.visibility = "hidden";
+    homePageEl.style.display = "none";
     questionsEl.style.visibility = "visible";
     feedbackEl.style.visibility = "visible";
+    endQuizText.style.visibility = "visible";
 
     startTimer();
     renderQuestion();

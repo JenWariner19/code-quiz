@@ -11,7 +11,7 @@
 <body>
     <header>
         <h2 id="view-highscores">View High Scores</h2>
-        <h2><span>Time: </span><span id="time">0</span></h2>
+        <h2>Timer: <span id="time">0</span></h2>
     </header>
 
     <main id="home-page">
@@ -22,18 +22,9 @@
 
     <div id="questions">
         <h2 id="question-text"></h2>
-        <div id="choices" class="choices"></div>
+        <div id="choices"></div>
     </div>
-
-    <div id="end-quiz" class="hide">
-        <h2>Quiz Complete!</h2>
-        <p>Your final score is <span id="final-score"></span>!</p>
-        <p>
-            Enter your intials: <input type="text" id="initials"/>
-            <button id="submit-btn">Submit</button>
-        </p>
-    </div>
-
+    <div id="end-quiz"></div>
     <div id="feedback"></div>
 
     <script src = "./assets/js/script.js"></script>
