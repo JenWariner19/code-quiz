@@ -60,12 +60,14 @@ function nextQuestion(event) {
     checkAnswer(userChoice);
     questionsEl.innerHTML = "";
     currentQuestionIndex++;
-    renderQuestion();
-    endQuiz();
+    if(currentQuestionIndex > 4) {
+        endQuiz();
+    } else {
+        renderQuestion();
+    };
 };
 
 function checkAnswer(guess) {
-
     var checkAnswer = questionsArr[currentQuestionIndex];
     var answer = checkAnswer.answer
     feedbackEl.setAttribute("style", "font-size: 30px; font-weight:bold; margin-left: 30%; margin-bottom: 10px;");
@@ -81,10 +83,12 @@ function endQuiz() {
     clearInterval(myTimer);
     questionsEl.style.visibility = "hidden";
     var outcome = document.createElement("h1");
+    outcome.setAttribute("style", "font-size: 30px; font-weight:bold; margin-top: 10%; margin-left: 30%; margin-bottom: 10px;");
     outcome.innerHTML = "You got a score of: " + timeLeft + "!";
     endQuizText.append(outcome);
     var input = document.createElement("input");
     input.setAttribute("placeholder", "Initials...");
+    input.setAttribute("style", "margin-left: 30%;");
     endQuizText.append(input);
     var submit = document.createElement("button");
     submit.innerHTML = "Submit";
@@ -92,9 +96,10 @@ function endQuiz() {
     submit.addEventListener("click", function() {
 
     var initials = input.value;
+
     endQuizText.style.visibility = "visible";
     });
-    localStorage.setItem("userScore", JSON.stringify(timeLeft));
+    localStorage.setItem("finalScore", JSON.stringify(timeLeft));
     input.setAttribute("placeholder", " ");
 }
 
@@ -144,6 +149,11 @@ function startTimer() {
         };
         timeLeft--;
         timeRemaining.textContent = timeLeft;
+
+        if (timeLeft === 0) {
+            clearInterval(myTimer);
+            endQuiz();
+        }
     }, 1000);
 }
 
