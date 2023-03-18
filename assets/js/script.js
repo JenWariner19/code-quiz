@@ -51,7 +51,6 @@ function init() {
   questionsEl.style.visibility = "hidden";
   endQuizText.style.visibility = "hidden";
   feedbackEl.style.visibility = "hidden";
-
 }
 
 function nextQuestion(event) {
@@ -94,15 +93,12 @@ function endQuiz() {
     submit.innerHTML = "Submit";
     endQuizText.append(submit);
     submit.addEventListener("click", function() {
-
-    var initials = input.value;
-
-    endQuizText.style.visibility = "visible";
+        var initials = input.value;
+        endQuizText.style.visibility = "visible";
+        localStorage.setItem("finalScore", JSON.stringify([initials, timeLeft]));
+        input.setAttribute("placeholder", " ");
     });
-    localStorage.setItem("finalScore", JSON.stringify(timeLeft));
-    input.setAttribute("placeholder", " ");
 }
-
 
 function renderQuestion() { 
 questionsEl.innerHTML = "";
