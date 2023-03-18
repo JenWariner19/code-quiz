@@ -38,6 +38,7 @@ var homePageEl = document.getElementById("home-page");
 var endQuizText = document.getElementById("end-quiz");
 var questionText = document.getElementById("question-text");
 var scoreView = document.getElementById("score");
+var highScores = document.getElementById("high-scores");
 
 //Remaining variables
 var timeLeft = 60;
@@ -77,6 +78,16 @@ function checkAnswer(guess) {
     feedbackEl.textContent = "Correct!";
    }
 };
+
+function viewScores() {
+    var scoreView = JSON.parse(localStorage.getItem("finalScore"));
+    for (var i =0; i < scoreView.length; i++) {
+        var scoreViewEl = document.createElement("li");
+        scoreViewEl.innerHTML = "Initials: " + scoreView[i].initials + " Score" + scoreView[i].timeLeft;
+        highScores.appendChild(scoreViewEl);
+
+    }
+}
 
 function endQuiz() {
     clearInterval(myTimer);
