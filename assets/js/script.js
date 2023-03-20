@@ -79,8 +79,6 @@ function checkAnswer(guess) {
    }
 };
 
-
-
 function endQuiz() {
     clearInterval(myTimer);
     questionsEl.style.visibility = "hidden";
@@ -98,14 +96,23 @@ function endQuiz() {
     submit.addEventListener("click", function() {
         var initials = input.value;
         endQuizText.style.visibility = "visible";
-        localStorage.setItem("finalScore", JSON.stringify([initials, timeLeft]));
+        var scores = {
+            initials: initials,
+            timeLeft: timeLeft
+            }
+        localStorage.setItem("finalScore", JSON.stringify([scores]));
         input.setAttribute("placeholder", " ");
 
         var scoreView = JSON.parse(localStorage.getItem("finalScore"));
         for (var i =0; i < scoreView.length; i++) {
+            console.log(scoreView[i]);
+            var scoreHeading = document.createElement("h2");
             var scoreViewEl = document.createElement("li");
+            scoreHeading.innerHTML = "High Scores List";
+            scoreHeading.setAttribute("style", "margin-left: 30%; font-size: 28px; font-weight:bold;")
             scoreViewEl.innerHTML = "Initials: " + scoreView[i].initials + " Score: " + scoreView[i].timeLeft;
             scoreViewEl.setAttribute("style", "margin-left: 30%; font-size: 24px;");
+            highScores.appendChild(scoreHeading);
             highScores.appendChild(scoreViewEl);
         }
     });
