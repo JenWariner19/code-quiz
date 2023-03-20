@@ -79,15 +79,7 @@ function checkAnswer(guess) {
    }
 };
 
-function viewScores() {
-    var scoreView = JSON.parse(localStorage.getItem("finalScore"));
-    for (var i =0; i < scoreView.length; i++) {
-        var scoreViewEl = document.createElement("li");
-        scoreViewEl.innerHTML = "Initials: " + scoreView[i].initials + " Score" + scoreView[i].timeLeft;
-        highScores.appendChild(scoreViewEl);
 
-    }
-}
 
 function endQuiz() {
     clearInterval(myTimer);
@@ -108,6 +100,14 @@ function endQuiz() {
         endQuizText.style.visibility = "visible";
         localStorage.setItem("finalScore", JSON.stringify([initials, timeLeft]));
         input.setAttribute("placeholder", " ");
+
+        var scoreView = JSON.parse(localStorage.getItem("finalScore"));
+        for (var i =0; i < scoreView.length; i++) {
+            var scoreViewEl = document.createElement("li");
+            scoreViewEl.innerHTML = "Initials: " + scoreView[i].initials + " Score: " + scoreView[i].timeLeft;
+            scoreViewEl.setAttribute("style", "margin-left: 30%; font-size: 24px;");
+            highScores.appendChild(scoreViewEl);
+        }
     });
 }
 
