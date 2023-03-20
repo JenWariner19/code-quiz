@@ -54,6 +54,7 @@ function init() {
   feedbackEl.style.visibility = "hidden";
 }
 
+//Runs through questions and checks if they are right/wrong
 function nextQuestion(event) {
     var choiceBtn = event.target;
     var userChoice = choiceBtn.textContent;
@@ -67,6 +68,7 @@ function nextQuestion(event) {
     };
 };
 
+//Checks if questions is correct or not
 function checkAnswer(guess) {
     var checkAnswer = questionsArr[currentQuestionIndex];
     var answer = checkAnswer.answer
@@ -79,6 +81,7 @@ function checkAnswer(guess) {
    }
 };
 
+//Ends quiz, allows user to submit initials and score, and displays high score list
 function endQuiz() {
     clearInterval(myTimer);
     questionsEl.style.visibility = "hidden";
@@ -105,7 +108,6 @@ function endQuiz() {
 
         var scoreView = JSON.parse(localStorage.getItem("finalScore"));
         for (var i =0; i < scoreView.length; i++) {
-            console.log(scoreView[i]);
             var scoreHeading = document.createElement("h2");
             var scoreViewEl = document.createElement("li");
             scoreHeading.innerHTML = "High Scores List";
@@ -118,6 +120,7 @@ function endQuiz() {
     });
 }
 
+//Displays questions
 function renderQuestion() { 
 questionsEl.innerHTML = "";
 var currentQuestion = questionsArr[currentQuestionIndex];
@@ -154,7 +157,7 @@ choice4.addEventListener("click", nextQuestion);
 };
 
 
-
+//Starts timer when quiz starts
 function startTimer() {
     myTimer = setInterval(function() {
         if (timeLeft <= 0) {
@@ -171,6 +174,7 @@ function startTimer() {
     }, 1000);
 }
 
+//Starts quiz when start button clicked
 function startQuiz() {
     timeLeft= 60;
     startBtn.disabled = true;
